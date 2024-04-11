@@ -5,7 +5,6 @@ exports.getCustomer = (id) => {
         try {
             const result = await pg.query('select * from customers where id=$1',
                 [id])
-            console.log(result.rows[0])
             resolve(result.rows[0]);
         } catch (err) {
             reject(err)
@@ -13,7 +12,6 @@ exports.getCustomer = (id) => {
 
     })
 }
-
 
 exports.getCustomerByEmail = (email) => {
 

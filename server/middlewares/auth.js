@@ -9,12 +9,12 @@ module.exports = (req, res, next) => {
         return res.status(401).json({ message: 'No token provided' });
     }
 
-    jwt.verify(token, keys.jwtSecret, (err, decoded) => {
+    jwt.verify(token, keys.jwtSecret, async (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: 'Invalid token' });
         }
 
-        req.user = Customer.getCustomer(decoded.user.id);
+        req.user = await Customer.getCustomer(decoded.user.id);
         next();
     });
 }

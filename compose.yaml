@@ -33,3 +33,6 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=admin
       - PGPORT=5432
+
+
+  

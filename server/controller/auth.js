@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
 
         // Generate JWT
         const accessToken = jwt.sign({ user: {id: user.id}  }, jwtSecret, {
-            expiresIn: jwtExpiration
+            //expiresIn: jwtExpiration
         });
 
         // Generate Refresh Token
@@ -31,8 +31,6 @@ exports.login = async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
-
-
 
     return res.status(200)
 }
@@ -55,11 +53,11 @@ exports.signup = async (req, res) => {
         // Hash the password
 
         // Generate JWT
-        const accessToken = jwt.sign({ user: { id: user._id } }, jwtSecret, {
+        const accessToken = jwt.sign({ user: { id: user.id } }, jwtSecret, {
             expiresIn: jwtExpiration
         });
 
-        const refreshToken = jwt.sign({ user: { id: user._id } }, jwtRefreshSecret);
+        const refreshToken = jwt.sign({ user: { id: user.id } }, jwtRefreshSecret);
 
         res.status(201).json({ accessToken, refreshToken });
     } catch (err) {
@@ -73,16 +71,16 @@ exports.refresh = async (req, res) => {
         const refreshToken  = req.headers.refreshtoken;
 
         // Verify refresh token
-        jwt.verify(refreshToken, keys.jwtRefreshSecret, (err, decoded) => {
+        jwt.verify(refreshToken, jwtRefreshSecret, (err, decoded) => {
             if (err) {
                 return res.status(401).json({ message: 'Invalid refresh token' });
             }
-
+            console.log(decoded)
             // Generate new access token
-            const accessToken = jwt.sign({ user: decoded.user.id }, jwtSecret, {
+            const accessToken = jwt.sign({ user: {id: decoded.user.id} }, jwtSecret, {
                 expiresIn: jwtExpiration
             });
-            const newRefreshToken = jwt.sign({ user: decoded.user.id }, jwtRefreshSecret);
+            const newRefreshToken = jwt.sign({ user: {id: decoded.user.id} }, jwtRefreshSecret);
 
             res.json({ accessToken: accessToken, refreshToken: newRefreshToken });
         });
