@@ -32,9 +32,10 @@ exports.insertCustomer = (customer) => {
 
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await pg.query('insert into customers (first_name, last_name, email, password, phone_number, address) values ($1, $2, $3, $4, $5, $6)',
-                [customer.first_name, customer.last_name, customer.email, customer.hashPassword, customer.phone_number, customer.address])
-            resolve(customer);
+            const inserted = await pg.query('insert into customers (first_name, last_name, email, password, phone_number, address, zone_id) values ($1, $2, $3, $4, $5, $6, $7) returning *',
+                [customer.first_name, customer.last_name, customer.email, customer.hashPassword, customer.phone_number, customer.address, customer.zone])
+            console.log("inserted row: " + inserted)
+            resolve(inserted.rows[0]);
         } catch (err) {
             reject(err)
         }

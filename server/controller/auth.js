@@ -18,12 +18,12 @@ exports.login = async (req, res) => {
         }
 
         // Generate JWT
-        const accessToken = jwt.sign({ user: {id: user.id}  }, jwtSecret, {
+        const accessToken = jwt.sign({ user: user  }, jwtSecret, {
             //expiresIn: jwtExpiration
         });
 
         // Generate Refresh Token
-        const refreshToken = jwt.sign({ user: {id: user.id} }, jwtRefreshSecret);
+        const refreshToken = jwt.sign({ user: user}, jwtRefreshSecret);
 
 
         res.status(201).json({ accessToken, refreshToken });
@@ -36,7 +36,8 @@ exports.login = async (req, res) => {
 }
 
 exports.signup = async (req, res) => {
-    const { first_name, last_name, email, password, phone_number, address } = req.body;
+    console.log(req.body)
+    const { first_name, last_name, email, password, phone_number, address, zone } = req.body;
 
     try {
         // Check if the user already exists
@@ -48,16 +49,17 @@ exports.signup = async (req, res) => {
         const hashPassword = await bcrypt.hash(password, salt);
 
         // Create a new user
-        user = await Customer.insertCustomer({ first_name, last_name, email, hashPassword, phone_number, address });
+        console.log('line before inserting customer')
+        user = await Customer.insertCustomer({ first_name, last_name, email, hashPassword, phone_number, address, zone });
         console.log('returned' + user)
         // Hash the password
 
         // Generate JWT
-        const accessToken = jwt.sign({ user: { id: user.id } }, jwtSecret, {
-            expiresIn: jwtExpiration
+        const accessToken = jwt.sign({ user: user }, jwtSecret, {
+            // expiresIn: jwtExpiration
         });
 
-        const refreshToken = jwt.sign({ user: { id: user.id } }, jwtRefreshSecret);
+        const refreshToken = jwt.sign({ user: user }, jwtRefreshSecret);
 
         res.status(201).json({ accessToken, refreshToken });
     } catch (err) {
@@ -77,10 +79,10 @@ exports.refresh = async (req, res) => {
             }
             console.log(decoded)
             // Generate new access token
-            const accessToken = jwt.sign({ user: {id: decoded.user.id} }, jwtSecret, {
+            const accessToken = jwt.sign({ user: decoded.user }, jwtSecret, {
                 expiresIn: jwtExpiration
             });
-            const newRefreshToken = jwt.sign({ user: {id: decoded.user.id} }, jwtRefreshSecret);
+            const newRefreshToken = jwt.sign({ user: decoded.user }, jwtRefreshSecret);
 
             res.json({ accessToken: accessToken, refreshToken: newRefreshToken });
         });

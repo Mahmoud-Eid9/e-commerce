@@ -10,7 +10,7 @@ exports.addToCart = async (req, res) => {
         res.status(201).json({message: "Added Successfully"})
     } catch (err){
         console.error(err.message);
-        res.status(500).json({error: 'Invalid Cart Item Data Provided'});
+        res.status(400).json({error: 'Invalid Cart Item Data Provided'});
     }
 }
 
@@ -25,5 +25,13 @@ exports.getCart = async (req, res) => {
 }
 
 exports.deleteCartItem = async (req, res) => {
-
+    try {
+        const { cartItem_id } = req.body
+        console.log(req.user)
+        await Cart.deleteCartItem(cartItem_id)
+        res.status(202).json({message: "Deleted Successfully"})
+    } catch (err){
+        console.error(err.message);
+        res.status(400).json({error: 'Invalid Cart Item Data Provided'});
+    }
 }

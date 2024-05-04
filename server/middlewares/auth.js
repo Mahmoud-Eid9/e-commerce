@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
             return res.status(401).json({ message: 'Invalid token' });
         }
 
-        req.user = await Customer.getCustomer(decoded.user.id);
+        req.user = decoded.user;
         next();
     });
 }
