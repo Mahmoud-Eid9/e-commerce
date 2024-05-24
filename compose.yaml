@@ -33,6 +33,16 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=admin
       - PGPORT=5432
+  react-app:
+    container_name: react-app
+    build:
+      context: ./react-app
+      dockerfile: dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./react-app:/app
 
 
   
