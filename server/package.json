@@ -9,7 +9,10 @@
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.0",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "redis": "*",
+    "ioredis": "*",
+    "node-cron": "*"
   },
   "scripts": {
     "dev": "nodemon index.js",

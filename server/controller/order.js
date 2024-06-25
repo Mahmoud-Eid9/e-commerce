@@ -10,7 +10,6 @@ exports.createOrder = async (req, res) => {
         req.body.order['shipment_id'] = shipment.id
         req.body.order['customer_id'] = req.user.id
         req.body.order['status'] = 1
-        console.log(req.user)
         const order = await Order.createOrder(req.body.order)
         await Order.addCartToOrderItems(order.id, req.body.cart, req.user.id)
     } catch (err) {

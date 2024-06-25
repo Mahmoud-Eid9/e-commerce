@@ -6,5 +6,7 @@ module.exports = {
     pgPort: process.env.PGPORT,
     jwtSecret: process.env.JWTSECRET,
     jwtRefreshSecret: process.env.JWTREFRESHSECRET,
-    jwtExpiration: process.env.JWTEXPIRATION
+    jwtExpiration: process.env.JWTEXPIRATION,
+    redisHost: process.env.REDIS_HOST,
+    redisPort: process.env.REDIS_PORT
 }

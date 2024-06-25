@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const PostRequest = (params) => {
+export const postRequest = (route = '', token = '', body={}) => {
     return new Promise(async (res, rej) => {
         try {
-            const data = await axios.post(`http://localhost:8000/api/${params.route}`,params.body, {
+            const data = await axios.post(`http://localhost:8000/api/${route}`,body, {
                 headers: {
-                    Authorization: `Bearer ${params.token}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             console.log(data)
@@ -20,8 +20,7 @@ export const getRequest = async (route = '', token = '') => {
     return new Promise(async (res, rej) => {
         try {
             const data = await axios.get(`http://localhost:8000/api/${route}`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            console.log(data)
+                { headers: { "Authorization": `${token}` } })
             res(data)
         } catch (error) {
             rej("Connection Error")

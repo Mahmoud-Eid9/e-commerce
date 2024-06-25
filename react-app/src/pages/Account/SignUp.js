@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { logoLight } from "../../assets/images";
-import { PostRequest } from "../../utils/request";
+import { postRequest } from "../../utils/request";
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -124,7 +124,7 @@ const SignUp = () => {
           }
         }
         try {
-          const response = await PostRequest(data)
+          const response = await postRequest(data)
           const accessToken = response.data.accessToken
           const refreshToken = response.data.refreshToken
           localStorage.setItem('token', accessToken)

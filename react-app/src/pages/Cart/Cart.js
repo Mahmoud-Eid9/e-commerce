@@ -6,6 +6,7 @@ import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
 import { resetCart } from "../../redux/orebiSlice";
 import { emptyCart } from "../../assets/images/index";
 import ItemCard from "./ItemCard";
+import { postRequest } from "../../utils/request";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,11 @@ const Cart = () => {
       setShippingCharge(20);
     }
   }, [totalAmt]);
+
+  const handleSubmit = async (event) =>{
+    event.preventDefault()
+    const res = await postRequest("/", localStorage.getItem("token"), );
+  }
   return (
     <div className="max-w-container mx-auto px-4">
       <Breadcrumbs title="Cart" />
@@ -92,11 +98,9 @@ const Cart = () => {
                 </p>
               </div>
               <div className="flex justify-end">
-                <Link to="/paymentgateway">
-                  <button className="w-52 h-10 bg-primeColor text-white hover:bg-black duration-300">
-                    Proceed to Checkout
+                  <button onClick={handleSubmit} className="w-52 h-10 bg-primeColor text-white hover:bg-black duration-300">
+                    Submit Order
                   </button>
-                </Link>
               </div>
             </div>
           </div>
