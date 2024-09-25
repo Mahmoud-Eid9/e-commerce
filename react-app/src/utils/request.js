@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const postRequest = (route = '', token = '', body={}) => {
+export const postRequest = (req) => {
     return new Promise(async (res, rej) => {
         try {
-            const data = await axios.post(`http://localhost:8000/api/${route}`,body, {
+            const data = await axios.post(`http://localhost:8000/api/${req.route}`,req.body, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${req.token}`
                 }
             })
             console.log(data)

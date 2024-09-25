@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   userInfo: [],
+  loggedIn: false,
   products: [],
   checkedBrands: [],
   checkedCategorys: [],
@@ -85,6 +86,23 @@ export const orebiSlice = createSlice({
         state.checkedCategorys.push(category);
       }
     },
+    getUserData: (state, action) => {
+      const token = localStorage.getItem("token");
+      const payloadBase64 = token.split(".")[1];
+      if(payloadBase64){
+        const payloadJson = atob(
+          payloadBase64.replace(/-/g, "+").replace(/_/g, "/")
+        );
+        const payload = JSON.parse(payloadJson);
+        state.userInfo = payload.user;
+        state.loggedIn = true;
+      }
+    },
+    logOut: (state, action) => {
+      state.userInfo = {};
+      state.loggedIn = false;
+      localStorage.setItem("token", "");
+    },
   },
 });
 
@@ -96,5 +114,7 @@ export const {
   resetCart,
   toggleBrand,
   toggleCategory,
+  getUserData,
+  logOut,
 } = orebiSlice.actions;
 export default orebiSlice.reducer;

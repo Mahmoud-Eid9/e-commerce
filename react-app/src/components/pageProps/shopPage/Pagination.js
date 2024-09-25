@@ -32,6 +32,7 @@ function Items({ currentItems, selectedBrands, selectedCategories }) {
             productName={item.name}
             price={item.price}
             des={item.description}
+            stock={item.stock}
           />
         </div>
       ))}

@@ -22,10 +22,15 @@ import Offer from "./pages/Offer/Offer";
 import Payment from "./pages/payment/Payment";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
+import Profile from "./pages/Account/profile";
 import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { getUserData } from "./redux/orebiSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 const Layout = () => {
+  const dispatch = useDispatch();
+  dispatch(getUserData());
   return (
     <div>
       <ToastContainer
@@ -65,9 +70,10 @@ const router = createBrowserRouter(
         <Route path="/product/:_id" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/paymentgateway" element={<Payment />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Route>
-      <Route path="/signup" element={<SignUp />}></Route>
-      <Route path="/signin" element={<SignIn />}></Route>
     </Route>
   )
 );

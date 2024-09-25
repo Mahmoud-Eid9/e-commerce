@@ -20,6 +20,7 @@ const Product = (props) => {
   const [wishList, setWishList] = useState([]);
   const navigate = useNavigate();
   const productItem = props;
+  console.log(productItem);
   const handleProductDetails = () => {
     navigate(`/product/${rootId}`, {
       state: {

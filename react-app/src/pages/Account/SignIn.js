@@ -52,12 +52,15 @@ const SignIn = () => {
         const refreshToken = response.data.refreshToken
         localStorage.setItem('token', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
+        console.log("logged in")
         setEmail("");
         setPassword("");
         navigate("/")
     } catch (error) {
-      if(error.response.status === 400){
+      if(error?.response?.status === 400){
         setError("Invalid Credentials");
+      }else{
+        setErrEmail("Internal Server Error");
       }
     }
 

@@ -46,7 +46,8 @@ services:
       - /app/node_modules
       - ./react-app:/app
   redis:
-    image: 'redis:latest'
+    container_name: redis
+    image: redis:latest
 
 
   

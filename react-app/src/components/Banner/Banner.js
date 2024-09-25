@@ -7,6 +7,7 @@ import {
   bannerImgThree,
 } from "../../assets/images";
 import Image from "../designLayouts/Image";
+import {getRequest} from '../../utils/request';
 
 const CustomSlide = ({ Subtext, imgSrc, text, buttonLink, buttonText }) => (
   <div
@@ -149,7 +150,9 @@ const Banner = () => {
     ],
   };
 
-  const slides = [
+
+
+  const slidess = [
     {
       imgSrc: bannerImgOne,
       text: "Enhance Your Printing Experience",
@@ -180,7 +183,7 @@ const Banner = () => {
   return (
     <div className="w-full bg-white">
       <Slider {...settings}>
-        {slides.map((slide, index) => (
+        {slidess.map((slide, index) => (
           <CustomSlide key={index} {...slide} />
         ))}
       </Slider>

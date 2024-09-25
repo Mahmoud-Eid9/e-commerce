@@ -25,14 +25,13 @@ exports.login = async (req, res) => {
         // Generate Refresh Token
         const refreshToken = jwt.sign({ user: user}, jwtRefreshSecret);
 
-
-        res.status(201).json({ accessToken, refreshToken });
+        console.log("server login controller")
+        return res.status(201).json({ accessToken, refreshToken });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 
-    return res.status(200)
 }
 
 exports.signup = async (req, res) => {
