@@ -19,8 +19,6 @@ services:
     build:
       context: ./server
       dockerfile: dockerfile.dev
-    ports:
-      - "8000:8000"
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -40,14 +38,20 @@ services:
     build:
       context: ./react-app
       dockerfile: dockerfile.dev
-    ports:
-      - "3000:3000"
     volumes:
       - /app/node_modules
       - ./react-app:/app
   redis:
     container_name: redis
     image: redis:latest
+  nginx:
+    container_name: nginx
+    restart: always
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
 
 
   

@@ -88,6 +88,9 @@ export const orebiSlice = createSlice({
     },
     getUserData: (state, action) => {
       const token = localStorage.getItem("token");
+      if(token === null || !token){
+        return;
+      }
       const payloadBase64 = token.split(".")[1];
       if(payloadBase64){
         const payloadJson = atob(
